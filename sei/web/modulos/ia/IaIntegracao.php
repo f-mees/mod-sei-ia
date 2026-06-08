@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * @modified 2026-06 TCE-RS - request-scoped cache + batch pre-load for icon hooks (perf);
+ *           Assisted-by: GitHub Copilot (Claude Sonnet 4.6)
+ */
 class IaIntegracao extends SeiIntegracao
 {
 
     const PARAMETRO_VERSAO_MODULO = 'VERSAO_MODULO_IA';
 
+    // [TCE-RS perf] request-scoped caches: config flags + per-procedure icon state
     private static $cacheExibeFuncionalidade = null;
     private static $cacheExibeFuncionalidadeOdsOnu = null;
     private static $cacheConsultaUnidadeAlerta = null;
@@ -159,6 +164,7 @@ class IaIntegracao extends SeiIntegracao
     {
         if ($this->verificaAcessoOdsOnu(NULL)) {
 
+            // [TCE-RS perf] batch pre-load: 2 IN-queries replace N+1 round-trips per loop
             $arrIdsProcedimentos = array_map(
                 function($p) { return $p->getIdProcedimento(); },
                 $arrObjProcedimentoDTO

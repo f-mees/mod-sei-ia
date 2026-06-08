@@ -5,6 +5,8 @@
  * 28/09/2023 - criado por sabino.colab
  *
  * Versão do Gerador de Código: 1.43.3
+ *
+ * @modified 2026-06 TCE-RS - request-scoped cache (perf); Assisted-by: GitHub Copilot (Claude Sonnet 4.6)
  */
 
 require_once dirname(__FILE__) . '../../../../SEI.php';
@@ -12,6 +14,7 @@ require_once dirname(__FILE__) . '../../../../SEI.php';
 class MdIaAdmPesqDocRN extends InfraRN
 {
 
+    // [TCE-RS perf] request-scoped cache: one DB round-trip per class per request
     private static $objCache = null;
 
     public function __construct()
