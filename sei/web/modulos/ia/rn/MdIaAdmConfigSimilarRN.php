@@ -12,6 +12,8 @@ require_once dirname(__FILE__) . '../../../../SEI.php';
 class MdIaAdmConfigSimilarRN extends InfraRN
 {
 
+    private static $objCache = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -63,6 +65,8 @@ class MdIaAdmConfigSimilarRN extends InfraRN
     {
         try {
 
+            self::$objCache = null;
+
             SessaoSEI::getInstance()->validarAuditarPermissao('md_ia_adm_config_similar_cadastrar', __METHOD__, $objMdIaAdmConfigSimilarDTO);
 
             //Regras de Negocio
@@ -89,6 +93,8 @@ class MdIaAdmConfigSimilarRN extends InfraRN
     protected function alterarControlado(MdIaAdmConfigSimilarDTO $objMdIaAdmConfigSimilarDTO)
     {
         try {
+
+            self::$objCache = null;
 
             SessaoSEI::getInstance()->validarAuditarPermissao('md_ia_adm_config_similar_alterar', __METHOD__, $objMdIaAdmConfigSimilarDTO);
 
@@ -143,6 +149,10 @@ class MdIaAdmConfigSimilarRN extends InfraRN
     {
         try {
 
+            if (self::$objCache !== null) {
+                return self::$objCache;
+            }
+
             SessaoSEI::getInstance()->validarAuditarPermissao('md_ia_adm_config_similar_consultar', __METHOD__, $objMdIaAdmConfigSimilarDTO);
 
             //Regras de Negocio
@@ -154,6 +164,8 @@ class MdIaAdmConfigSimilarRN extends InfraRN
 
             /** @var MdIaAdmConfigSimilarDTO $ret */
             $ret = $objMdIaAdmConfigSimilarBD->consultar($objMdIaAdmConfigSimilarDTO);
+
+            self::$objCache = $ret;
 
             return $ret;
         } catch (Exception $e) {

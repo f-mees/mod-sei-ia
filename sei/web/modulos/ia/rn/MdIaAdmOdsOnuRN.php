@@ -11,6 +11,8 @@ require_once dirname(__FILE__) . '../../../../SEI.php';
 class MdIaAdmOdsOnuRN extends InfraRN
 {
 
+    private static $objCache = null;
+
     public function __construct()
     {
         parent::__construct();
@@ -53,6 +55,8 @@ class MdIaAdmOdsOnuRN extends InfraRN
     {
         try {
 
+            self::$objCache = null;
+
             SessaoSEI::getInstance()->validarAuditarPermissao('md_ia_adm_ods_onu_cadastrar', __METHOD__, $objMdIaAdmOdsOnuDTO);
 
             //Regras de Negocio
@@ -76,6 +80,8 @@ class MdIaAdmOdsOnuRN extends InfraRN
     protected function alterarControlado(MdIaAdmOdsOnuDTO $objMdIaAdmOdsOnuDTO)
     {
         try {
+
+            self::$objCache = null;
 
             SessaoSEI::getInstance()->validarAuditarPermissao('md_ia_adm_ods_onu_alterar', __METHOD__, $objMdIaAdmOdsOnuDTO);
 
@@ -127,6 +133,10 @@ class MdIaAdmOdsOnuRN extends InfraRN
     {
         try {
 
+            if (self::$objCache !== null) {
+                return self::$objCache;
+            }
+
             SessaoSEI::getInstance()->validarAuditarPermissao('md_ia_adm_ods_onu_consultar', __METHOD__, $objMdIaAdmOdsOnuDTO);
 
             //Regras de Negocio
@@ -138,6 +148,8 @@ class MdIaAdmOdsOnuRN extends InfraRN
 
             /** @var MdIaAdmOdsOnuDTO $ret */
             $ret = $objMdIaAdmOdsOnuBD->consultar($objMdIaAdmOdsOnuDTO);
+
+            self::$objCache = $ret;
 
             return $ret;
         } catch (Exception $e) {
