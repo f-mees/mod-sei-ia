@@ -5,10 +5,10 @@ class MdIaAtualizadorSeiRN extends InfraRN
 {
 
     private $numSeg = 0;
-    private $versaoAtualDesteModulo = '1.4.0';
+    private $versaoAtualDesteModulo = '1.4.1-tce-rs';
     private $nomeDesteModulo = 'MÓDULO IA';
     private $nomeParametroModulo = 'VERSAO_MODULO_IA';
-    private $historicoVersoes = array('1.0.0', '1.1.0', '1.2.0', '1.3.0', '1.4.0');
+    private $historicoVersoes = array('1.0.0', '1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.4.1-tce-rs');
 
     public function __construct()
     {
@@ -116,6 +116,8 @@ class MdIaAtualizadorSeiRN extends InfraRN
                     $this->instalarv130();
                 case '1.3.0':
                     $this->instalarv140();
+                case '1.4.0':
+                    $this->instalarv141tce();
                     break;
                 default:
                     $this->finalizar('A VERSÃO MAIS ATUAL DO ' . $this->nomeDesteModulo . ' (v' . $this->versaoAtualDesteModulo . ') JÁ ESTÁ INSTALADA.');
@@ -1783,6 +1785,24 @@ Utilizar apenas informações confiáveis, mais atualizadas e verificáveis. Nun
             $mdIaAdmMetaOdsDTO->setStrSinForteRelacao("N");
             $mdIaAdmMetaOdsRN->cadastrar($mdIaAdmMetaOdsDTO);
         }
+
+        $this->atualizarNumeroVersao($nmVersao);
+    }
+
+    // [TCE-RS perf] 2026-06: add indexes on md_ia_doc_indexaveis polling columns
+    protected function instalarv141tce()
+    {
+        $nmVersao = '1.4.1-tce-rs';
+
+        $this->logar('EXECUTANDO A INSTALAÇÃO/ATUALIZAÇÃO DA VERSAO ' . $nmVersao . ' DO ' . $this->nomeDesteModulo . ' NA BASE DO SEI');
+
+        $objInfraMetaBD = new InfraMetaBD(BancoSEI::getInstance());
+
+        // [TCE-RS perf] Indexes on frequently-queried Airflow polling columns.
+        // Eliminates full-table scans on sin_vetorizado/sin_indexado in V$SQL hot queries.
+        $this->logar('CRIANDO ÍNDICES EM md_ia_doc_indexaveis');
+        $objInfraMetaBD->criarIndice('md_ia_doc_indexaveis', 'ix_md_ia_doc_idx_sin_vetorizado', array('sin_vetorizado'));
+        $objInfraMetaBD->criarIndice('md_ia_doc_indexaveis', 'ix_md_ia_doc_idx_sin_indexado',   array('sin_indexado'));
 
         $this->atualizarNumeroVersao($nmVersao);
     }
