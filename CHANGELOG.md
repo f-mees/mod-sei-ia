@@ -36,11 +36,12 @@
 - **Impacto**: redução de **até 60 consultas para 1** em uma caixa de entrada com 30 procedimentos. `montarIconeProcesso` (chamado por procedimento isolado) cai para 0–1 consulta quando os caches estão populados.
 - **Assistência**: GitHub Copilot (Claude Sonnet 4.6)
 
-### 3. Índices em MD_IA_DOC_INDEXAVEIS (pendente de integração com banco de dados)
-- **Script de migração a implementar**: `sei_atualizar_versao_modulo_ia.php`
-- **Descrição**: criação de índices nas colunas `SIN_VETORIZADO` e `SIN_INDEXADO` para eliminar full scans nas consultas de polling do Airflow.
-- **Impacto**: melhoria significativa no throughput do pipeline de indexação/vetorização em ambientes com volumes maiores.
-- **Status**: requer teste e aprovação do DBA antes do deploy.
+### 3. Índices em MD_IA_DOC_INDEXAVEIS
+- **Script de migração**: `sei/scripts/sei_atualizar_versao_modulo_ia.php` — método `instalarv141tce()`
+- **Descrição**: criação de índices nas colunas `SIN_VETORIZADO` e `SIN_INDEXADO` via `InfraMetaBD::criarIndice()` (compatível com Oracle, MySQL e PostgreSQL). A migração é executada automaticamente ao rodar o script de atualização a partir da versão `1.4.0` do módulo.
+- **Impacto**: elimina `TABLE ACCESS STORAGE FULL` nas queries de polling do Airflow (7.7k execuções/dia em `sin_vetorizado`, 2.4k em `sin_indexado`, 1.004 buffers/exec cada).
+- **Assistência**: GitHub Copilot (Claude Sonnet 4.6)
+- **Observação para Oracle**: a equipe pode avaliar a criação manual como índices bitmap (mais eficientes para colunas flag `'S'`/`'N'` de baixa cardinalidade), substituindo os índices B-tree gerados pelo script.
 
 ## Notas de Integração
 - Todas as alterações são, em princípio, compatíveis com os demais bancos de dados suportados pelo SEI.
