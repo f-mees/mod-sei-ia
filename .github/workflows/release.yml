@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Create archive with selected files and directories
         run: |
@@ -23,21 +23,10 @@ jobs:
             LICENSE \
             README.md
 
-      - name: Get tag name
-        id: tag
-        run: echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Read CHANGELOG
-        id: changelog
-        run: |
-          cat CHANGELOG.md >> $GITHUB_OUTPUT
-          echo "eof" >> $GITHUB_OUTPUT
-
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: release.tar.gz
-          tag_name: ${{ steps.tag.outputs.tag_name }}
-          body: ${{ steps.changelog.outputs }}
+          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
