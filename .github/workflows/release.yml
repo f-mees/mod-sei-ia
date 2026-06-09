@@ -1,0 +1,43 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create archive with selected files and directories
+        run: |
+          tar -czf release.tar.gz \
+            sei/ \
+            sip/ \
+            LICENSE \
+            README.md
+
+      - name: Get tag name
+        id: tag
+        run: echo "tag_name=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Read CHANGELOG
+        id: changelog
+        run: |
+          cat CHANGELOG.md >> $GITHUB_OUTPUT
+          echo "eof" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release.tar.gz
+          tag_name: ${{ steps.tag.outputs.tag_name }}
+          body: ${{ steps.changelog.outputs }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

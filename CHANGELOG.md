@@ -11,8 +11,8 @@
 
 ---
 
-# v1.4.2-tce-rs (Em desenvolvimento — TCE-RS branch)
-**Melhorias de desempenho para Oracle; baseado em v1.4.1**
+# v1.4.1-ferabreu (fork)
+**Melhorias de desempenho para Oracle; baseada em v1.4.1**
 
 > **Nota:** Esta versão é um ramo de desenvolvimento contendo otimizações específicas para o TCE-RS. Ao atualizar o módulo a partir do upstream, será necessário fazer cherry-pick seletivo dessas alterações ou aguardar integração no master.
 
@@ -43,22 +43,11 @@
 - **Status**: requer teste e aprovação do DBA antes do deploy.
 
 ## Notas de Integração
-- Todas as alterações são compatíveis com PostgreSQL (testado) e MySQL (esperado).
+- Todas as alterações são, em princípio, compatíveis com os demais bancos de dados suportados pelo SEI.
 - Os mecanismos de cache são thread-safe dentro do escopo de uma requisição PHP (estáticos ao escopo da classe, não globais).
 - Ao fazer merge com upstream, a divergência fica concentrada em 4 arquivos PHP da camada de integração. Usar `git diff upstream/master...tce-rs -- sei/web/modulos/ia/` para revisar a divergência.
 
 ---
 
-# v1.4.0
-**Versão estável anterior**
-
-## Correções desta Versão
-1. Correções gerais de compatibilidade.
-
-## Evoluções desta Versão
-1. Suporte inicial a Oracle.
-
----
-
-# v1.3.0 e anteriores
+# v1.4.0 e anteriores
 Veja [releases no GitHub](https://github.com/anatelgovbr/mod-sei-ia/releases) para histórico completo.
