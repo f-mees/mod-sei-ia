@@ -1,4 +1,6 @@
-# Módulo SEI IA
+# Módulo SEI IA - fmees
+
+Este é um fork de [anatelgov.br/mod-sei-ia](https://github.com/anatelgovbr/mod-sei-ia), com otimizações específicas para bancos de dados Oracle.
 
 ## Requisitos
 - Requisito Mínimo é o SEI 4.1.5.

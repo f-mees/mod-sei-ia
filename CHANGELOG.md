@@ -5,10 +5,10 @@
 
 ---
 
-# v1.4.1-fmees (fork)
+# v1.4.1-fmees.1 (fork)
 **Correção de bug no healthchecker do Airflow; melhorias de desempenho para Oracle e nos índices de background; fork de v1.4.1**
 
-> **Nota:** Este é um fork do upstream v1.4.1 com otimizações específicas para o TCE-RS. Ao atualizar o módulo a partir do upstream, será necessário fazer cherry-pick seletivo dessas alterações ou aguardar integração no master.
+> **Nota:** Este é um fork do upstream v1.4.1, com otimizações específicas. Ao atualizar o módulo a partir do upstream, será necessário fazer cherry-pick seletivo dessas alterações ou aguardar integração no master.
 
 ## Correções desta Versão
 1. **Airflow healthchecker — falsos positivos corrigidos**: corrigidas as funções `convert_docker_airflow_output_to_df` e `get_airflow_dag_import_error` em `tests/airflow_tests.py` que geravam alertas de falha mesmo quando os DAGs estavam funcionando normalmente. Os filtros de parsing foram refinados para distinguir corretamente entre linhas de log com pipe (`|`) e avisos de sugestão do importador.
