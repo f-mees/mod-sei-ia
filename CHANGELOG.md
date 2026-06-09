@@ -5,7 +5,7 @@
 
 ---
 
-# v1.4.1-ferabreu (fork)
+# v1.4.1-fmees (fork)
 **Correção de bug no healthchecker do Airflow; melhorias de desempenho para Oracle e nos índices de background; fork de v1.4.1**
 
 > **Nota:** Este é um fork do upstream v1.4.1 com otimizações específicas para o TCE-RS. Ao atualizar o módulo a partir do upstream, será necessário fazer cherry-pick seletivo dessas alterações ou aguardar integração no master.
@@ -31,7 +31,7 @@
 - **Assistência**: GitHub Copilot (Claude Sonnet 4.6)
 
 ### 3. Índices em MD_IA_DOC_INDEXAVEIS
-- **Script de migração**: `sei/scripts/sei_atualizar_versao_modulo_ia.php` — método `instalarv141ferabreu()`
+- **Script de migração**: `sei/scripts/sei_atualizar_versao_modulo_ia.php` — método `instalarv141fmees()`
 - **Descrição**: criação de índices nas colunas `SIN_VETORIZADO` e `SIN_INDEXADO` via `InfraMetaBD::criarIndice()` (compatível com Oracle, MySQL e PostgreSQL). A migração é executada automaticamente ao rodar o script de atualização a partir da versão `1.4.0` **ou `1.4.1`** do módulo.
 - **Impacto**: elimina `TABLE ACCESS STORAGE FULL` nas queries de polling do Airflow (7.7k execuções/dia em `sin_vetorizado`, 2.4k em `sin_indexado`, 1.004 buffers/exec cada).
 - **Assistência**: GitHub Copilot (Claude Sonnet 4.6)

@@ -4,7 +4,7 @@
  *
  * 20/12/2023 - criado por sabino.colab
  *
- * @modified 2026-06 ferabreu - request-scoped cache (perf); Assisted-by: GitHub Copilot (Claude Sonnet 4.6)
+ * @modified 2026-06 fmees - request-scoped cache (perf); Assisted-by: GitHub Copilot (Claude Sonnet 4.6)
  */
 
 require_once dirname(__FILE__) . '../../../../SEI.php';
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '../../../../SEI.php';
 class MdIaAdmOdsOnuRN extends InfraRN
 {
 
-    // [ferabreu perf] request-scoped cache: one DB round-trip per class per request
+    // [fmees perf] request-scoped cache: one DB round-trip per class per request
     private static $objCache = null;
 
     public function __construct()
