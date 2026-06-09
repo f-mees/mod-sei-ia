@@ -3,16 +3,10 @@
 # v1.4.1 (Upstream)
 **Versão estável atual**
 
-## Correções desta Versão
-1. Correção de bugs gerais.
-
-## Evoluções desta Versão
-1. Suporte a ambientes de produção com Oracle.
-
 ---
 
 # v1.4.1-ferabreu (fork)
-**Melhorias de desempenho para Oracle; fork de v1.4.1**
+**Correção de bug no healthchecker do Airflow; melhorias de desempenho para Oracle e nos índices de background; fork de v1.4.1**
 
 > **Nota:** Este é um fork do upstream v1.4.1 com otimizações específicas para o TCE-RS. Ao atualizar o módulo a partir do upstream, será necessário fazer cherry-pick seletivo dessas alterações ou aguardar integração no master.
 
@@ -50,5 +44,5 @@
 
 ---
 
-# v1.4.0 e anteriores
+# v1.4.1 e anteriores
 Veja [releases no GitHub](https://github.com/anatelgovbr/mod-sei-ia/releases) para histórico completo.
