@@ -12,9 +12,9 @@
 ---
 
 # v1.4.1-ferabreu (fork)
-**Melhorias de desempenho para Oracle; baseada em v1.4.1**
+**Melhorias de desempenho para Oracle; fork de v1.4.1**
 
-> **Nota:** Esta versão é um ramo de desenvolvimento contendo otimizações específicas para o TCE-RS. Ao atualizar o módulo a partir do upstream, será necessário fazer cherry-pick seletivo dessas alterações ou aguardar integração no master.
+> **Nota:** Este é um fork do upstream v1.4.1 com otimizações específicas para o TCE-RS. Ao atualizar o módulo a partir do upstream, será necessário fazer cherry-pick seletivo dessas alterações ou aguardar integração no master.
 
 ## Correções desta Versão
 1. **Airflow healthchecker — falsos positivos corrigidos**: corrigidas as funções `convert_docker_airflow_output_to_df` e `get_airflow_dag_import_error` em `tests/airflow_tests.py` que geravam alertas de falha mesmo quando os DAGs estavam funcionando normalmente. Os filtros de parsing foram refinados para distinguir corretamente entre linhas de log com pipe (`|`) e avisos de sugestão do importador.
@@ -37,8 +37,8 @@
 - **Assistência**: GitHub Copilot (Claude Sonnet 4.6)
 
 ### 3. Índices em MD_IA_DOC_INDEXAVEIS
-- **Script de migração**: `sei/scripts/sei_atualizar_versao_modulo_ia.php` — método `instalarv141tce()`
-- **Descrição**: criação de índices nas colunas `SIN_VETORIZADO` e `SIN_INDEXADO` via `InfraMetaBD::criarIndice()` (compatível com Oracle, MySQL e PostgreSQL). A migração é executada automaticamente ao rodar o script de atualização a partir da versão `1.4.0` do módulo.
+- **Script de migração**: `sei/scripts/sei_atualizar_versao_modulo_ia.php` — método `instalarv141ferabreu()`
+- **Descrição**: criação de índices nas colunas `SIN_VETORIZADO` e `SIN_INDEXADO` via `InfraMetaBD::criarIndice()` (compatível com Oracle, MySQL e PostgreSQL). A migração é executada automaticamente ao rodar o script de atualização a partir da versão `1.4.0` **ou `1.4.1`** do módulo.
 - **Impacto**: elimina `TABLE ACCESS STORAGE FULL` nas queries de polling do Airflow (7.7k execuções/dia em `sin_vetorizado`, 2.4k em `sin_indexado`, 1.004 buffers/exec cada).
 - **Assistência**: GitHub Copilot (Claude Sonnet 4.6)
 - **Observação para Oracle**: a equipe pode avaliar a criação manual como índices bitmap (mais eficientes para colunas flag `'S'`/`'N'` de baixa cardinalidade), substituindo os índices B-tree gerados pelo script.
@@ -46,7 +46,7 @@
 ## Notas de Integração
 - Todas as alterações são, em princípio, compatíveis com os demais bancos de dados suportados pelo SEI.
 - Os mecanismos de cache são thread-safe dentro do escopo de uma requisição PHP (estáticos ao escopo da classe, não globais).
-- Ao fazer merge com upstream, a divergência fica concentrada em 4 arquivos PHP da camada de integração. Usar `git diff upstream/master...tce-rs -- sei/web/modulos/ia/` para revisar a divergência.
+- Ao fazer merge com upstream, a divergência fica concentrada em 4 arquivos PHP e no script de migração. Usar `git diff upstream/master...local -- sei/web/modulos/ia/ sei/scripts/` para revisar a divergência.
 
 ---
 

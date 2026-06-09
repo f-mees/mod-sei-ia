@@ -5,10 +5,10 @@ class MdIaAtualizadorSeiRN extends InfraRN
 {
 
     private $numSeg = 0;
-    private $versaoAtualDesteModulo = '1.4.1-tce-rs';
+    private $versaoAtualDesteModulo = '1.4.1-ferabreu';
     private $nomeDesteModulo = 'MÓDULO IA';
     private $nomeParametroModulo = 'VERSAO_MODULO_IA';
-    private $historicoVersoes = array('1.0.0', '1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.4.1-tce-rs');
+    private $historicoVersoes = array('1.0.0', '1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.4.1-ferabreu');
 
     public function __construct()
     {
@@ -117,7 +117,8 @@ class MdIaAtualizadorSeiRN extends InfraRN
                 case '1.3.0':
                     $this->instalarv140();
                 case '1.4.0':
-                    $this->instalarv141tce();
+                case '1.4.1':
+                    $this->instalarv141ferabreu();
                     break;
                 default:
                     $this->finalizar('A VERSÃO MAIS ATUAL DO ' . $this->nomeDesteModulo . ' (v' . $this->versaoAtualDesteModulo . ') JÁ ESTÁ INSTALADA.');
@@ -1790,9 +1791,9 @@ Utilizar apenas informações confiáveis, mais atualizadas e verificáveis. Nun
     }
 
     // [TCE-RS perf] 2026-06: add indexes on md_ia_doc_indexaveis polling columns
-    protected function instalarv141tce()
+    protected function instalarv141ferabreu()
     {
-        $nmVersao = '1.4.1-tce-rs';
+        $nmVersao = '1.4.1-ferabreu';
 
         $this->logar('EXECUTANDO A INSTALAÇÃO/ATUALIZAÇÃO DA VERSAO ' . $nmVersao . ' DO ' . $this->nomeDesteModulo . ' NA BASE DO SEI');
 
