@@ -1,8 +1,12 @@
 # Módulo SEI IA - fmees
 
-Este é um fork de [anatelgov.br/mod-sei-ia](https://github.com/anatelgovbr/mod-sei-ia), com otimizações específicas para bancos de dados Oracle.
+Este é um fork de [anatelgov.br/mod-sei-ia](https://github.com/anatelgovbr/mod-sei-ia), com otimizações específicas para bancos de dados Oracle. Não possui vínculo com a distribuição oficial do mod-sei-ia.
 
+**Aviso de isenção de responsabilidade: o software é fornecido "no estado em que se encontra", sem garantia de qualquer tipo. O usuário assume todos os riscos quanto à qualidade e desempenho do software.**
+
+<!--
 ## Requisitos
+
 - Requisito Mínimo é o SEI 4.1.5.
    - Não é compatível com versões anteriores e em versões mais recentes é necessário conferir antes se possui compatibilidade.
    - Verificar valor da constante de versão no arquivo `/sei/web/SEI.php` ou, após logado no sistema, parando o mouse sobre a logo do SEI no canto superior esquerdo.
@@ -36,6 +40,7 @@ Antes de executar qualquer script de instalação ou atualização do Módulo SE
 | session.cookie_secure  | 1                    | Opcional. Indica que o cookie de sessão trafegará somente via HTTPS. Antes de ativar, garantir que todos os links do SEI utilizem o prefixo `https://` (intranet, atalhos, acessos externos, integrações, etc.). Caso o usuário clique em um link `http://` estando logado, a sessão será perdida. |
 
 ## Procedimentos para Instalação
+
 1. Fazer backup dos bancos de dados do SEI e do SIP.
 2. Carregar no servidor os arquivos do módulo nas pastas correspondentes nos servidores do SEI e do SIP.
    - **Caso se trate de atualização de versão anterior do Módulo**, antes de copiar os códigos-fontes para a pasta "/sei/web/modulos/ia", é necessário excluir os arquivos anteriores pré existentes na mencionada pasta, para não manter arquivos de códigos que foram renomeados ou descontinuados.
@@ -63,6 +68,7 @@ Antes de executar qualquer script de instalação ou atualização do Módulo SE
 9. Após a execução com sucesso, com um usuário com permissão de Administrador no SEI, seguir os passos dispostos no tópico "Orientações Negociais" mais abaixo.
 
 ## Orientações Negociais
+
 1. Mais uma vez reforçamos que antes de instalar o [Servidor de Soluções de IA](https://github.com/anatelgovbr/sei-ia?tab=readme-ov-file "Clique e acesse") é mandatório ter o Módulo SEI IA previamente instalado e configurado no SEI do ambiente correspondente.
 2. Imediatamente após a instalação com sucesso do Módulo SEI IA no SEI, usuário com permissão de "Administrador" do SEI deve fazer novo login no SEI e acessar os menus de administração do Módulo pelo seguinte caminho: Administração > Inteligência Artificial.
 	- Somente com tudo parametrizado na Administração do Módulo será possível seu uso adequado.
@@ -79,6 +85,8 @@ Antes de executar qualquer script de instalação ou atualização do Módulo SE
 4. Acesse o [Manual do Usuário do SEI IA](https://docs.google.com/document/d/e/2PACX-1vRsKljzHcKwRfdW7IcnFA1EHNPIInog9Mqpu58xEFzRMfZ5avrLhYbwUjPkXuTDFKFEPnev4ASJ-5Dm/pub "Clique e acesse") para conhecer suas funcionalidades.
 
 ## Erros ou Sugestões
+
 1. [Abrir Issue](https://github.com/anatelgovbr/mod-sei-ia/issues) no repositório do GitHub do módulo se ocorrer erro na execução dos scripts de banco do módulo no SEI ou no SIP acima.
 2. [Abrir Issue](https://github.com/anatelgovbr/mod-sei-ia/issues) no repositório do GitHub do módulo se ocorrer erro na operação do módulo.
 3. Na abertura da Issue utilizar o modelo **"1 - Reportar Erro"**. 
+-->

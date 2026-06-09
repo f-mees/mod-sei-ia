@@ -5,10 +5,10 @@ class MdIaAtualizadorSeiRN extends InfraRN
 {
 
     private $numSeg = 0;
-    private $versaoAtualDesteModulo = '1.4.1-fmees.1';
+    private $versaoAtualDesteModulo = '1.4.2-fmees.1';
     private $nomeDesteModulo = 'MÓDULO IA';
     private $nomeParametroModulo = 'VERSAO_MODULO_IA';
-    private $historicoVersoes = array('1.0.0', '1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.4.1', '1.4.1-fmees.1');
+    private $historicoVersoes = array('1.0.0', '1.1.0', '1.2.0', '1.3.0', '1.4.0', '1.4.1', '1.4.2-fmees.1');
 
     public function __construct()
     {
@@ -1793,7 +1793,7 @@ Utilizar apenas informações confiáveis, mais atualizadas e verificáveis. Nun
     // [TCE-RS perf] 2026-06: add indexes on md_ia_doc_indexaveis polling columns
     protected function instalarv141fmees1()
     {
-        $nmVersao = '1.4.1-fmees.1';
+        $nmVersao = '1.4.2-fmees.1';
 
         $this->logar('EXECUTANDO A INSTALAÇÃO/ATUALIZAÇÃO DA VERSAO ' . $nmVersao . ' DO ' . $this->nomeDesteModulo . ' NA BASE DO SEI');
 
