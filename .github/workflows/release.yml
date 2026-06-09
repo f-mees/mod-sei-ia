@@ -17,16 +17,19 @@ jobs:
 
       - name: Create archive with selected files and directories
         run: |
-          tar -czf release.tar.gz \
-            sei/ \
-            sip/ \
-            LICENSE \
-            README.md
+          VERSION=${GITHUB_REF#refs/tags/v}
+          DIR="mod-sei-ia-${VERSION}"
+          mkdir "$DIR"
+          cp -r sei/ sip/ LICENSE README.md "$DIR/"
+          tar -czf "${DIR}.tar.gz" "$DIR"
+          zip -r "${DIR}.zip" "$DIR"
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release.tar.gz
+          files: |
+            mod-sei-ia-*.tar.gz
+            mod-sei-ia-*.zip
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
