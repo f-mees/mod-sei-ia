@@ -11,11 +11,9 @@ permissions:
 jobs:
   create-release:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6
 
       - name: Create archive with selected files and directories
         run: |
@@ -27,7 +25,7 @@ jobs:
           zip -r "${DIR}.zip" "$DIR"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             mod-sei-ia-*.tar.gz
