@@ -563,6 +563,8 @@
             protocolo["acao_origem"] = urlParams.get("acao_origem");
             protocolo["acesso"] = urlParams.get("acesso");
             protocolo["id_procedimento"] = urlParams.get("id_procedimento");
+            $("#validacaoMensagem").html("Verificando o(s) documento(s) citado(s) na sua mensagem. Por favor, aguarde...");
+            ativarBloqueioNavegacao();
             $.ajax({
                 url: '<?= SessaoSEI::getInstance()->assinarLink('controlador_ajax.php?acao_ajax=md_ia_consulta_protocolo_assistente_ia_ajax'); ?>',
                 type: 'POST',
@@ -571,23 +573,41 @@
                 data: JSON.stringify({
                     protocolo: protocolo
                 }),
-                async: false,
+                async: true,
                 success: function(dadosCitacoes) {
+                    desativarBloqueioNavegacao();
                     if (!Array.isArray(dadosCitacoes)) {
                         if (dadosCitacoes["result"] == "false") {
                             $("#validacaoMensagem").html(dadosCitacoes["mensagem"]);
                             estadoDeInteracao();
                         }
                     } else {
+                        $("#validacaoMensagem").html("");
                         var mensagem = $("#mensagem").val();
                         verificaJanelaContexto(mensagem, dadosCitacoes)
                     }
                 },
                 error: function(err) {
                     console.log(err);
+                    desativarBloqueioNavegacao();
+                    $("#validacaoMensagem").html("Não foi possível verificar o documento citado. Tente novamente.");
+                    estadoDeInteracao();
                 }
             });
         }
+    }
+
+    function ativarBloqueioNavegacao() {
+        window.addEventListener('beforeunload', _mdIaBeforeUnloadHandler);
+    }
+
+    function desativarBloqueioNavegacao() {
+        window.removeEventListener('beforeunload', _mdIaBeforeUnloadHandler);
+    }
+
+    function _mdIaBeforeUnloadHandler(e) {
+        e.preventDefault();
+        e.returnValue = '';
     }
 
     function estadoDeInteracao() {
